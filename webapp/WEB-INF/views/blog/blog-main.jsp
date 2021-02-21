@@ -26,12 +26,12 @@
 					
 					<!-- 기본이미지 -->
 					
-					<img id="proImg" src="${pageContext.request.contextPath}/img/${blMap.blDto.logoFile}">
+					<img id="proImg" src="${pageContext.request.contextPath}/img/${blMap.blVo.logoFile}">
 					
 					<!-- 사용자업로드 이미지 -->
 					<%-- <img id="proImg" src=""> --%>
 					
-					<div id="nick">${blMap.blDto.userName}(${blMap.blDto.id})님의 블로그</div>
+					<div id="nick">${blMap.blVo.userName}(${blMap.blVo.id})님의 블로그</div>
 				</div>
 				
 				<div id="cate">
@@ -44,7 +44,7 @@
 						
 						<c:forEach items="${blMap.caList}" var="caVo">
 						
-							<li><a href="${pageContext.request.contextPath}/${blMap.blDto.id}?cateNo=${caVo.CATENO}">${caVo.CATENAME}</a></li>
+							<li><a href="${pageContext.request.contextPath}/${blMap.blVo.id}?cateNo=${caVo.CATENO}">${caVo.CATENAME}</a></li>
 						
 						</c:forEach>
 										
@@ -59,7 +59,7 @@
 				<div id="postBox" class="clearfix">
 						<div id="postTitle" class="text-left"><strong>${blMap.blDto.postTitle}</strong></div>
 						<div id="postDate" class="text-left"><strong>${blMap.blDto.regDate}</strong></div>
-						<div id="postNick">${blMap.blDto.userName}(${blMap.blDto.id})님</div>
+						<div id="postNick">${blMap.blVo.userName}(${blMap.blVo.id})님</div>
 				</div>
 				<!-- //postBox -->
 			

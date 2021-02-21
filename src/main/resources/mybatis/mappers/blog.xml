@@ -34,11 +34,12 @@
 		
 		<![CDATA[
 			
-			select		blogTitle,
+			select		userName,
+						blogTitle,
 						logoFile
 			
-			from 		blog
-			where		id = #{id}
+			from 		blog b, users u
+			where		id = #{id} and b.id = u.id
 		]]>
 	
 	</select>

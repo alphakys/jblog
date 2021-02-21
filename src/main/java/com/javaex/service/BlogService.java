@@ -17,7 +17,6 @@ import com.javaex.dao.CategoryDao;
 import com.javaex.dao.PostDao;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.CategoryVo;
-import com.javaex.vo.MainDto;
 import com.javaex.vo.PostVo;
 
 @Service
@@ -30,11 +29,11 @@ public class BlogService {
 	@Autowired
 	private PostDao poDao;
 	
-	public Map<String, Object> getBlogMain(String id, int cateNo) {
+	public Map<String, Object> getBlogMain(String id, int cateNo, int postNo) {
 		
 		//url로 블로그 요청시 해당 아이디가 존재하는 지 확인하기 위한 메서드 selectBlog
 		//그리고 존재할시 id와 이름 blogTitle, logoFile로 구성된 MainDto --> checkId
-		MainDto checkId = blDao.selectBlog(id);
+		BlogVo checkId = blDao.selectBasicInfo(id);
 		
 		Map<String, Object> blMap = new HashMap<>();
 		
@@ -48,10 +47,16 @@ public class BlogService {
 		else {
 			//<checkId가 null이 아닐 시 blogMain에 뿌려줄 data들을 담을 Vo를 생성>
 			
+			
 			//블로그 메인에 뿌려줄 로고 파일과 블로그 타이틀 cateName리스트
 			blMap.put("caList", caDao.selectCateNameList(id));
-			blMap.put("blDto", checkId);
+			
+			List<CategoryVo> caList = caDao.selectCateNameList(id);
+			caList.get(0);
+			
+			blMap.put("blVo", checkId);
 			blMap.put("poList", poDao.selectPostList(id, cateNo));
+			blMap.put("postVo", poDao.selectPost(postNo));
 			
 			return blMap;
 		}

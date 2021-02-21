@@ -43,7 +43,26 @@
 	</select>
 	
 	
+	<select id="selectPost" parameterType="int" resultType="PostVo">
 	
+		<![CDATA[
+		
+			select		postTitle,
+						postContent,
+						regDate
+		
+			from		post
+		]]>	
+		
+		<choose>
+			<when test="postNo != 0">
+				where 	postNo = #{postNo}
+			</when>	
+			<otherwise>
+				where 	id = #{id} and 
+			</otherwise>
+		</choose>
+	</select>
 	
 	
 	

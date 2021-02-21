@@ -14,7 +14,7 @@ import com.javaex.vo.CategoryVo;
 
 @Controller
 @RequestMapping(value="api/category")
-public class CategoryController {
+public class ApiCategoryController {
 		
 		@Autowired
 		private CategoryService caService;
@@ -29,9 +29,13 @@ public class CategoryController {
 			
 		}
 		
-		
-		
-		
+		@ResponseBody
+		@RequestMapping(value="add", method= {RequestMethod.GET, RequestMethod.POST})
+		public int add(@RequestBody CategoryVo caVo) {
+			
+			return caService.addCategory(caVo);
+			
+		}
 		
 		
 		

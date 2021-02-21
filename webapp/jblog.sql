@@ -144,10 +144,20 @@ order by 	cateNo desc;
 -- main에 뿌려줄 가장 상위 카테고리의 글 리스트
 select  postNo,
         postTitle,
-        p.regDate
+        regDate
         
-from post p
-where p.cateNo = (select max(cateNo) from category where id = 'gys6');
+from post
+where cateNo = (select max(cateNo) from category where id = 'gys6');
+
+
+select  postNo,
+        postTitle,
+        p.regDate,
+        c.cateNo
+        
+from post p, category c
+where id = 'gys6' and c.cateno = '32'
+and c.cateNo = p.cateNO;
 
 
 --카테코리 info에 뿌려줄 정보
@@ -156,6 +166,15 @@ select      cateNo,
             description        
 from category
 where id = 'gys6'; 
+
+
+select		userName,
+            blogTitle,
+            logoFile
+			
+from 		blog b, users u
+where		b.id = 'gys6' and b.id = u.id;
+
 
 
 
@@ -220,11 +239,16 @@ where cateNo = '32';
 select *
 from post;
 
+select *
+from category;
 
 
 
-
-
+		select		postTitle,
+						postContent
+		
+			from		post
+			where		postNo = '12';
 
 
 

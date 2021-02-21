@@ -7,9 +7,17 @@ public class BlogVo {
 	//고안된 Vo
 	
 	
-	private String id, blogTitle, logoFile;
+	private String id, blogTitle, logoFile, userName;
 
 	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -34,11 +42,13 @@ public class BlogVo {
 		this.logoFile = logoFile;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "BlogVo [id=" + id + ", blogTitle=" + blogTitle + ", logoFile=" + logoFile + "]";
+		return "BlogVo [id=" + id + ", blogTitle=" + blogTitle + ", logoFile=" + logoFile + ", userName=" + userName
+				+ "]";
 	}
+
+	
 	
 	
 		

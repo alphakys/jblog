@@ -34,9 +34,10 @@ public class BlogController {
 	@RequestMapping
 	public String myBlog(@PathVariable("id") String id, 
 						 @RequestParam(value="cateNo", required= false, defaultValue="0") int cateNo,
+						 @RequestParam(value="postNo", required=false, defaultValue="0") int postNo,
 						 Model model) {
 		
-		Map<String, Object> blMap = blService.getBlogMain(id, cateNo);
+		Map<String, Object> blMap = blService.getBlogMain(id, cateNo, postNo);
 		
 		if(blMap==null) {
 			

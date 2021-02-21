@@ -18,11 +18,16 @@ public class CategoryService {
 	private BlogDao blDao;
 	
 	public List<CategoryVo> getInfo(String id) {
-		
-		
-		
+			
 		return caDao.selectInfo(id);
 	}
+	
+	
+	public int addCategory(CategoryVo caVo) {
+		
+		return caDao.insertCategory(caVo);
+	}
+	
 	
 	
 	

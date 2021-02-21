@@ -16,9 +16,9 @@ public class CategoryDao {
 	private SqlSession sqlSession;
 	
 	
-	public void insertCategory(CategoryVo caVo) {
+	public int insertCategory(CategoryVo caVo) {
 		
-		sqlSession.insert("category.insert", caVo);
+		return sqlSession.insert("category.insert", caVo);
 		
 	}
 	

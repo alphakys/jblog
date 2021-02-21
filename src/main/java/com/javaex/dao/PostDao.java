@@ -33,5 +33,13 @@ public class PostDao {
 	}
 	
 	
+	public PostVo selectPost(int postNo) {
+		
+		return sqlSession.selectOne("post.selectPost", postNo);
+	}
+	
+	
+	
+	
 	
 }

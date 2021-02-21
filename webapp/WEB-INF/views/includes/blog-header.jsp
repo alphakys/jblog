@@ -3,15 +3,15 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
 		
 		<div id="header" class="clearfix">
-			<h1><a href="${pageContext.request.contextPath}/${blMap.blDto.id}">${blMap.blDto.blogTitle }</a></h1>
+			<h1><a href="${pageContext.request.contextPath}/${blMap.blVo.id}">${blMap.blVo.blogTitle }</a></h1>
 			
 			<ul class="clearfix">
 				<!-- 로그인 전 메뉴 -->
 				
 				<c:choose>
-					<c:when test="${authUser.id eq blMap.blDto.id}">
+					<c:when test="${authUser.id eq blMap.blVo.id}">
 						
-						<li><a class="btn_s" href="${pageContext.request.contextPath}/${blMap.blDto.id}/admin/basic">내블로그 관리</a></li>
+						<li><a class="btn_s" href="${pageContext.request.contextPath}/${blMap.blVo.id}/admin/basic">내블로그 관리</a></li>
 						<li><a class="btn_s" href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 														
 					</c:when>

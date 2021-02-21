@@ -49,26 +49,9 @@
 				      		</tr>
 			      		</thead>
 			      		<tbody id="cateList">
+			      			
 			      			<!-- 리스트 영역 -->
-			      			<tr>
-								<td>1</td>
-								<td>자바프로그래밍</td>
-								<td>7</td>
-								<td>자바기초와 객체지향</td>
-							    <td class='text-center'>
-							    	<img class="btnCateDel" src="${pageContext.request.contextPath}/img/delete.jpg">
-							    </td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>오라클</td>
-								<td>5</td>
-								<td>오라클 설치와 sql문</td>
-							    <td class='text-center'>
-							    	<img class="btnCateDel" src="${pageContext.request.contextPath}/img/delete.jpg">
-							    </td>
-							</tr>
-							<!-- 리스트 영역 -->
+			      			
 						</tbody>
 					</table>
 	      	
@@ -79,16 +62,16 @@
 						</colgroup>
 			      		<tr>
 			      			<td class="t">카테고리명</td>
-			      			<td><input type="text" name="name" value=""></td>
+			      			<td><input type="text" name="cateName" value=""></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">설명</td>
-			      			<td><input type="text" name="desc"></td>
+			      			<td><input type="text" name="description"></td>
 			      		</tr>
 			      	</table> 
 				
 					<div id="btnArea">
-			      		<button id="btnAddCate" class="btn_l" type="submit" >카테고리추가</button>
+			      		<button id="btnAddCate" class="btn_l" type="button" >카테고리추가</button>
 			      	</div>
 				
 				</div>
@@ -108,9 +91,35 @@
 	
 		<script type="text/javascript">
 		
-			$("document").ready(function(){
+		//페이지 로드시 카테고리 리스트 테이블 
+		$("document").ready(function(){
+				
+			fetchList();	
+				
+		});
+					
+		
+			function render(caVo){
+					
+				let table = "<tr>";
+					table += 	"<td>CateNo</td>";
+					table += 	"<td>"+caVo.cateName+"</td>";
+					table += 	"<td>7</td>";
+					table += 	"<td>"+caVo.description+"</td>";
+					table += 	"<td class='text-center'>";
+					table += 	"<img class= 'btnCateDel' src='${pageContext.request.contextPath}/img/delete.jpg'>";
+					table += 	"</td>";
+					table += "</tr>";
+							
+				$("#cateList").append(table);				
+			};
+				
+			
+			
+			function fetchList(caVo){
+				
 				let	id= '${authUser.id}';
-
+	
 				$.ajax({
 					
 					url: "${pageContext.request.contextPath}/api/category/info",
@@ -127,7 +136,10 @@
 					
 					success: function(caVo){
 						
-						fetchList(caVo);
+						for(var i=0; i<caVo.length; i++){
+						
+						render(caVo[i]);
+						}
 						
 					},
 					
@@ -140,37 +152,71 @@
 					
 				});
 				
+			
 				
-			})
-					
+			};	
+			
 		
-		function render(caVo){
+			//카테고리 추가
+			
+			$("#btnAddCate").on("click", function(){
 				
-			let table = "<tr>";
-				table += 	"<td>CateNo</td>";
-				table += 	"<td>"+caVo.cateName+"</td>";
-				table += 	"<td>7</td>";
-				table += 	"<td>"+caVo.description+"</td>";
-				table += 	"<td class='text-center'>";
-				table += 	"<img class= 'btnCateDel' src='${pageContext.request.contextPath}/img/delete.jpg'>";
-				table += 	"</td>";
-				table += "</tr>";
+				let CategoryVo = {
 						
-			$("#cateList").append(table);				
-		};
-			
-		
-		
-		function fetchList(caVo){
-			
-			for(var i=0; i<caVo.length; i++){
+					id: '${authUser.id}',
+					cateName: $("[name='cateName']").val(),
+					description: $("[name='description']").val()
+				}
+				
+				$.ajax({
 					
-				render(caVo[i]);
-			}
+					url: "${pageContext.request.contextPath}/api/category/add",
+					
+					type: "post",
+					
+					contentType: "application/json",
+					
+					data: JSON.stringify(CategoryVo),
+					
+					dataType: "json",
+					
+					success: function(result){
+						
+						if(result==1){
+							alert("카테고리를 추가했습니다");
+						}
+						else{
+							alert("다시 시도해주세요");
+						}
+					},
+					
+					error: function(XHR, status, error){
+						console.log(status+ ":" + error);
+					}
+					
+				});
+				
+				
+				
+			});
 			
-		};	
 			
-		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		/*
 		
 		<tbody id="cateList">

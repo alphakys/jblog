@@ -6,19 +6,69 @@
 	<!-- 쿼리문 작성 -->
 	
 	<insert id="insert" parameterType= "BlogVo">
-	
+		
+		<![CDATA[
+		
 		insert into blog
 		values(#{id}, #{blogTitle}, #{logoFile})
-	
+		
+		]]>
+		
 	</insert>
 	
 	
-	<select id="selectBlog" parameterType="string" resultType="BlogVo">
+	<update id="updateBasicInfo" parameterType="BlogVo">
 	
-		select		blogTitle,
-					logoFile
-		from 		blog
-		where		id = #{id}
+		<![CDATA[	
+			
+			update 		blog
+			set			blogTitle = #{blogTitle},
+						logoFile = #{logoFile}
+			where		id = #{id}
+		]]>
+	
+	</update>
+	
+	
+	<select id="selectInfo" parameterType="string" resultType="BlogVo">
+		
+		<![CDATA[
+			
+			select		blogTitle,
+						logoFile
+			
+			from 		blog
+			where		id = #{id}
+		]]>
+	
+	</select>
+	
+
+	
+	<select id="selectBlog" parameterType="string" resultType="MainDto">
+	
+		<![CDATA[
+		
+	   select 	u.id,
+       			userName,
+       			blogTitle,
+       			logoFile,
+       			c.cateNo,
+		        catename,
+		        postNo,
+		        postTitle,
+		        postContent,    
+		        p.regDate
+	   
+	   from users u, blog b, category c, post p
+	   
+	   where u.id = b.id and c.id = u.id
+	   and u.id = #{id} and c.cateNo = (select max(cateNo) from category where id = #{id})
+	   and postNo = (select max(postNo) from post p, category c 
+	   where (select max(cateNo) from category where id = #{id}) = p.cateNo)
+	   		
+		
+		]]>
 		
 	</select>
 

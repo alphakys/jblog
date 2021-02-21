@@ -6,25 +6,56 @@
 	<!-- 쿼리문 작성 -->
 	
 	<insert id="insert" parameterType= "CategoryVo">
-	
+		
+		<selectKey keyProperty="cateNo" resultType="int" order="BEFORE">
+			select seq_category_no.nextval from dual
+		</selectKey>
+		
+		<![CDATA[
+		
 		insert into category
 		
-		values(seq_category_no.nextval, 
+		values(#{cateNo}, 
 			  #{id}, 
 			  #{cateName}, 
 			  #{description},
 			  sysdate)
-	
+		
+		]]>
 	</insert>
 	
 	
-	<select id="selectCategory" parameterType="string" resultType="CategoryVo">
 	
-		select		cateName,
-					
+	<select id="selectInfo" parameterType="CategoryVo" resultType="CategoryVo">
+	
+		<![CDATA[
+			
+			select      cateNo,
+            			cateName,
+            			description
+                       
+			from 		category
+			where id = #{id}	
+			order by cateNo desc
+		]]>
 	
 	
 	</select>
+	
+	
+
+	<select id="selectCateName" parameterType="string" resultType="map">
+		
+		<![CDATA[
+			select		cateNo,
+						cateName
+			from		category			
+			where   	id = #{id}
+			order by 	cateNo desc
+		]]>
+	
+	</select>
+	
 	
 
 </mapper>

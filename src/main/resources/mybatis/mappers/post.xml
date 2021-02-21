@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	
+	
+	<insert id="insertPost" parameterType="PostVo">
+		
+		<![CDATA[
+		
+			insert into post
+			values(seq_post_no.nextval, #{cateNo}, 
+				   #{postTitle}, #{postContent, jdbcType = VARCHAR}, sysdate)
+		]]>	
+	</insert>
+	
+	
+	<select id="selectPostList" parameterType="map" resultType="PostVo">
+	
+		<![CDATA[
+		
+		select  postNo,
+	        	postTitle,
+	        	p.regDate
+	        
+		]]>
+		
+		<choose>
+			<when test=" cateNo ==0 ">
+				from post p
+				where cateNo = (select max(cateNo) from category where id = #{id})
+			</when>
+			<otherwise>
+				from post p, category c
+				where id = #{id} and c.cateno = #{cateNo}
+				and c.cateNo = p.cateNo
+			</otherwise>
+		</choose>
+		<![CDATA[
+		order by postNo desc
+		]]>
+		
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

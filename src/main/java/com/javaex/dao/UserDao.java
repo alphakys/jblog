@@ -25,10 +25,6 @@ public class UserDao {
 		return sqlSession.selectOne("user.selectUser", usVo);
 	}
 	
-	
-	public String selectId(String id) {
-		
-		return sqlSession.selectOne("user.selectId", id);
-	}
+
 	
 }

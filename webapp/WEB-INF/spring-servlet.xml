@@ -50,9 +50,23 @@
 
 
 	<!-- url매핑 -->
-	<mvc:resources mapping="/upload/**"
-		location="file:C:/Users/gys11/Desktop/javaStudy/workspace_web/jblog/webapp/assets/images" />
+	<mvc:resources mapping="/img/**"
+		location="file:C:/Users/gys11/Desktop/javaStudy/upload/" />
 
+
+	<!-- MappingJackson2HttpMessageConverter -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 
 
 

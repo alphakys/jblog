@@ -34,44 +34,16 @@
 		
 		<![CDATA[
 			
-			select		userName,
+			select		u.userName,
 						blogTitle,
 						logoFile
 			
 			from 		blog b, users u
-			where		id = #{id} and b.id = u.id
+			where		u.id = #{id} and b.id = u.id
 		]]>
 	
 	</select>
 	
-
-	
-	<select id="selectBlog" parameterType="string" resultType="MainDto">
-	
-		<![CDATA[
-		
-	   select 	u.id,
-       			userName,
-       			blogTitle,
-       			logoFile,
-       			c.cateNo,
-		        catename,
-		        postNo,
-		        postTitle,
-		        postContent,    
-		        p.regDate
-	   
-	   from users u, blog b, category c, post p
-	   
-	   where u.id = b.id and c.id = u.id
-	   and u.id = #{id} and c.cateNo = (select max(cateNo) from category where id = #{id})
-	   and postNo = (select max(postNo) from post p, category c 
-	   where (select max(cateNo) from category where id = #{id}) = p.cateNo)
-	   		
-		
-		]]>
-		
-	</select>
 
 	
 

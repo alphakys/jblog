@@ -49,16 +49,27 @@ public class BlogService {
 			
 			
 			//블로그 메인에 뿌려줄 로고 파일과 블로그 타이틀 cateName리스트
-			blMap.put("caList", caDao.selectCateNameList(id));
-			
 			List<CategoryVo> caList = caDao.selectCateNameList(id);
-			caList.get(0);
-			
+			blMap.put("caList", caList);
+				
+			if(cateNo==0) {
+
+				cateNo = Integer.parseInt(String.valueOf(((Map<String, Object>) caList.get(0)).get("CATENO")));
+
+			}
+			checkId.setId(id);		
 			blMap.put("blVo", checkId);
+			
 			blMap.put("poList", poDao.selectPostList(id, cateNo));
-			blMap.put("postVo", poDao.selectPost(postNo));
+			
+			PostVo poVo = new PostVo();
+			poVo.setCateNo(cateNo);
+			poVo.setPostNo(postNo);
+			
+			blMap.put("poVo", poDao.selectPost(poVo));
 			
 			return blMap;
+			
 		}
 		
 		
@@ -125,7 +136,23 @@ public class BlogService {
 	}
 	
 	
+	public Map<String, Object> getCateInfo(String id) {
+		
+		List<Integer> postCntList = caDao.selectPostCnt(id);
+		List<CategoryVo> caList = caDao.selectInfo(id);
+		
+		Map<String, Object> caMap = new HashMap<>();
+		caMap.put("postCntList", postCntList);
+		caMap.put("caList", caList);
+		
+		return caMap;
+	}
 	
+	
+	public int addCategory(CategoryVo caVo) {
+		
+		return caDao.insertCategory(caVo);
+	}
 	
 	
 	

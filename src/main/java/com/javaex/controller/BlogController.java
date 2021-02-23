@@ -41,13 +41,13 @@ public class BlogController {
 		
 		if(blMap==null) {
 			
-			return "error/403";
+			return "redirect:/user/loginForm";
 		}
 		
 		else {
 						
 			model.addAttribute("blMap", blMap);
-			
+			model.addAttribute("blVo", blMap.get("blVo"));
 			return "blog/blog-main";
 		}
 		
@@ -68,7 +68,7 @@ public class BlogController {
 		//else {
 			
 			BlogVo basicInfo = blService.getBasicInfo(id);
-			model.addAttribute("basicInfo", basicInfo);
+			model.addAttribute("blVo", basicInfo);
 		//}
 		
 		return "blog/admin/blog-admin-basic";
@@ -77,8 +77,8 @@ public class BlogController {
 	
 	@RequestMapping(value="modifyInfo", method= {RequestMethod.POST, RequestMethod.GET})
 	public String modifyInfo(@PathVariable("id") String id, 
-						   @RequestParam("blogTitle") String blogTitle,
-						   MultipartFile mulFile) {
+						     @RequestParam("blogTitle") String blogTitle,
+						     MultipartFile mulFile) {
 		
 		BlogVo modiVo = new BlogVo();
 		modiVo.setId(id);
@@ -114,6 +114,7 @@ public class BlogController {
 		
 		model.addAttribute("caList", blService.getCateName(id));
 		
+		model.addAttribute("blVo", blService.getBasicInfo(id));
 		return "blog/admin/blog-admin-write";
 	}
 	

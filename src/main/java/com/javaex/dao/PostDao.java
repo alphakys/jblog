@@ -22,20 +22,21 @@ public class PostDao {
 	}
 	
 	
-	public List<PostVo> selectPostList(String id, int cateNO){
+	public List<PostVo> selectPostList(String id, int cateNo){
 		
 		Map<String, Object> poMap = new HashMap<>();
 		
-		poMap.put("cateNo", cateNO);
+		poMap.put("cateNo", cateNo);
 		poMap.put("id", id);
 		
 		return sqlSession.selectList("post.selectPostList", poMap);
+		
 	}
 	
 	
-	public PostVo selectPost(int postNo) {
+	public PostVo selectPost(PostVo poVo) {
 		
-		return sqlSession.selectOne("post.selectPost", postNo);
+		return sqlSession.selectOne("post.selectPost", poVo);
 	}
 	
 	

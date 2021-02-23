@@ -27,7 +27,7 @@
 	
 	
 	<select id="selectInfo" parameterType="CategoryVo" resultType="CategoryVo">
-	
+		
 		<![CDATA[
 			
 			select      cateNo,
@@ -43,13 +43,31 @@
 	</select>
 	
 	
+	<select id="selectPostCnt" resultType="int" parameterType="string">
+	
+		<![CDATA[
+			select count(postNo)
+			from (select  p.cateNo,
+              			  postNo
+      
+    			  from post p, (select cateNo from category where id = #{id}) c
+     			  where p.cateNo = c.cateNo)
+			
+			group by cateNo
+			order by cateNo desc
+			]]>
+	</select>
+	
+	
 
 	<select id="selectCateName" parameterType="string" resultType="map">
 		
 		<![CDATA[
 			select		cateNo,
 						cateName
-			from		category			
+						
+			from		category
+						
 			where   	id = #{id}
 			order by 	cateNo desc
 		]]>

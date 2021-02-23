@@ -57,14 +57,14 @@
 			<div id="post_area">
 				
 				<div id="postBox" class="clearfix">
-						<div id="postTitle" class="text-left"><strong>${blMap.blDto.postTitle}</strong></div>
-						<div id="postDate" class="text-left"><strong>${blMap.blDto.regDate}</strong></div>
+						<div id="postTitle" class="text-left"><strong>${blMap.poVo.postTitle}</strong></div>
+						<div id="postDate" class="text-left"><strong>${blMap.poVo.regDate}</strong></div>
 						<div id="postNick">${blMap.blVo.userName}(${blMap.blVo.id})님</div>
 				</div>
 				<!-- //postBox -->
 			
 				<div id="post" >
-					${blMap.blDto.postContent}
+					${blMap.poVo.postContent}
 				</div>
 				<!-- //post -->
 				
@@ -94,7 +94,7 @@
 						<c:forEach items="${blMap.poList}" var="poVo">
 							
 							<tr>
-								<td class="text-left"><a href="">${poVo.postTitle }</a></td>
+								<td class="text-left"><a href="${pageContext.request.contextPath}/${blMap.blVo.id}?cateNo=${param.cateNo}&postNo=${poVo.postNo}">${poVo.postTitle }</a></td>
 								<td class="text-right">${poVo.regDate }</td>
 							</tr>
 						

@@ -243,13 +243,67 @@ select *
 from category;
 
 
-
 		select		postTitle,
-						postContent
+						postContent,
+						regDate
 		
 			from		post
-			where		postNo = '12';
+				where 
+				 postNo = (select max(postNo) from post where cateNo = '32');
 
+select  postNo,
+	        	postTitle,
+	        	p.regDate
+	        	
+				from post p, category c
+				where id = 'gys6' and c.cateno = '32'
+				and c.cateNo = p.cateNo
+	
+		order by postNo desc;
+
+select count(case when cateNo='32' then 'postCnt' end),
+       count(case when cateNo='31' then 'postCnt' end)
+from   post;       
+
+select count(postNo)
+from post
+where cateNo = '31';
+
+select cateNo
+from category
+where id='gys6';
+
+select      cateNo,
+            cateName,
+            description,
+            count(case when cateNo = '32' then 1 end from post)           
+from 		category
+where id = 'gys6'	
+order by cateNo desc;
+
+
+select count(postNo)
+from (select  p.cateNo,
+              postNo
+      
+     from post p, (select cateNo from category where id = 'gys6') c
+     where p.cateNo = c.cateNo)
+group by cateNo
+;
+
+select  p.cateNo,
+        postNo,
+        postTitle,
+        postContent,
+        regDate
+from post p, (select cateNo from category where id = 'gys6') c
+where p.cateNo = c.cateNo;
+
+delete post
+where cateNo = '28'
+;
+select *
+from post;
 
 
 

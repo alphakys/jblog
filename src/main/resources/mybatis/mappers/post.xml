@@ -22,28 +22,18 @@
 		select  postNo,
 	        	postTitle,
 	        	p.regDate
-	        
-		]]>
-		
-		<choose>
-			<when test=" cateNo ==0 ">
-				from post p
-				where cateNo = (select max(cateNo) from category where id = #{id})
-			</when>
-			<otherwise>
+	        	
 				from post p, category c
 				where id = #{id} and c.cateno = #{cateNo}
 				and c.cateNo = p.cateNo
-			</otherwise>
-		</choose>
-		<![CDATA[
+	
 		order by postNo desc
 		]]>
 		
 	</select>
 	
 	
-	<select id="selectPost" parameterType="int" resultType="PostVo">
+	<select id="selectPost" parameterType="PostVo" resultType="PostVo">
 	
 		<![CDATA[
 		
@@ -59,9 +49,12 @@
 				where 	postNo = #{postNo}
 			</when>	
 			<otherwise>
-				where 	id = #{id} and 
+				where postNo = (select max(postNo) 
+				from post 
+				where cateNo = #{cateNo})
 			</otherwise>
 		</choose>
+		
 	</select>
 	
 	

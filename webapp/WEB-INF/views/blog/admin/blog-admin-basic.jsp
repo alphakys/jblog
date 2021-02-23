@@ -36,11 +36,11 @@
 						</colgroup>
 			      		<tr>
 			      			<td><label for="textTitle">블로그 제목</label></td>
-			      			<td><input id="textTitle" type="text" name="blogTitle" value="${basicInfo.blogTitle }"></td>
+			      			<td><input id="textTitle" type="text" name="blogTitle" value="${blVo.blogTitle }"></td>
 			      		</tr>
 			      		<tr>
 			      			<td><label>로고이미지</label></td>
-			      			<td class="text-left"><img src="${pageContext.request.contextPath}/img/${basicInfo.logoFile }"></td>   
+			      			<td class="text-left"><img src="${pageContext.request.contextPath}/img/${blVo.logoFile }"></td>   
 			      		</tr>      		
 			      		<tr>
 			      			<td>&nbsp;</td>

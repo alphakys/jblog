@@ -99,15 +99,15 @@
 		});
 					
 		
-			function render(caVo){
+			function render(caVo, postCnt){
 					
 				let table = "<tr>";
-					table += 	"<td>CateNo</td>";
+					table += 	"<td>"+caVo.cateNo+"</td>";
 					table += 	"<td>"+caVo.cateName+"</td>";
-					table += 	"<td>7</td>";
+					table += 	"<td>"+postCnt+"</td>";
 					table += 	"<td>"+caVo.description+"</td>";
 					table += 	"<td class='text-center'>";
-					table += 	"<img class= 'btnCateDel' src='${pageContext.request.contextPath}/img/delete.jpg'>";
+					table += 	"<a href=''><img class= 'btnCateDel' src='${pageContext.request.contextPath}/img/delete.jpg'></a>";
 					table += 	"</td>";
 					table += "</tr>";
 							
@@ -134,11 +134,15 @@
 						
 					dataType: "json",
 					
-					success: function(caVo){
+					success: function(caMap){
 						
-						for(var i=0; i<caVo.length; i++){
-						
-						render(caVo[i]);
+						for(var i=0; i<caMap.caList.length; i++){
+							
+							if(caMap.postCntList[i] ==undefined){
+									caMap.postCntList[i] =0;
+							}
+							
+							render(caMap.caList[i], caMap.postCntList[i]);
 						}
 						
 					},
@@ -156,6 +160,17 @@
 				
 			};	
 			
+			
+			//카테고리 삭제
+			
+			$("#btnCateDel").on("click", function(){
+				
+				
+				
+				
+				
+				
+			})
 		
 			//카테고리 추가
 			
@@ -199,49 +214,9 @@
 				
 				
 			});
+
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		/*
-		
-		<tbody id="cateList">
-			<!-- 리스트 영역 -->
-		<tr>
-			<td>1</td>
-			<td>자바프로그래밍</td>
-			<td>7</td>
-			<td>자바기초와 객체지향</td>
-		    <td class='text-center'>
-		    	<img class="btnCateDel" src="${pageContext.request.contextPath}/img/delete.jpg">
-		    </td>
-		</tr>
-		<tr>
-			<td>2</td>
-			<td>오라클</td>
-			<td>5</td>
-			<td>오라클 설치와 sql문</td>
-		    <td class='text-center'>
-		    	<img class="btnCateDel" src="${pageContext.request.contextPath}/img/delete.jpg">
-		    </td>
-		</tr>
-		<!-- 리스트 영역 -->
-	</tbody>
-		*/
+
 		</script>
 
 
